@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdul Haseeb | Biotechnology Portfolio</title>
+    
+    <!-- Fonts: Playfair Display for elegant headings, Inter for clean readable body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                        bgbase: '#fafaf9', // Off-white/stone-50
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for Reusable Components -->
+    <style>
+        body {
+            background-color: #fafaf9;
+            color: #1c1917;
+            scroll-behavior: smooth;
+        }
+
+        /* Reusable Placeholder Component */
+        .placeholder-tag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px dashed #94a3b8;
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-family: monospace;
+            margin: 0.25rem 0;
+            text-align: center;
+            word-break: break-word;
+        }
+        
+        .placeholder-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #cbd5e1;
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.875rem;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            width: 100%;
+            min-height: 150px;
+            text-align: center;
+        }
+
+        /* Reusable Tag Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.125rem 0.625rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-right: 0.5rem;
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+        .badge-did { background-color: #d1fae5; color: #065f46; } /* Green */
+        .badge-peers { background-color: #e0e7ff; color: #3730a3; } /* Indigo */
+        .badge-supervised { background-color: #fef3c7; color: #92400e; } /* Amber */
+        .badge-observed { background-color: #f3f4f6; color: #4b5563; } /* Gray */
+        .badge-studied { background-color: #fae8ff; color: #86198f; } /* Fuchsia */
+
+        /* Reusable Card Component */
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #e7e5e4;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .card-interactive:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+
+        /* Transitions for SPA Routing */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .page-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navigation Link Active State */
+        .nav-link {
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover { color: #0f766e; }
+        .nav-link.active-nav { color: #0f766e; font-weight: 600; border-bottom: 2px solid #0f766e; }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- Sticky Navigation -->
+    <header class="sticky top-0 z-50 bg-bgbase/90 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-wrap justify-between items-center gap-4">
+            <div class="font-serif font-bold text-xl text-brand-800 cursor-pointer" onclick="navigateTo('home')">
+                Abdul Haseeb
+            </div>
+            <nav class="flex flex-wrap gap-4 text-sm font-medium text-stone-600">
+                <button class="nav-link active-nav" data-target="home" onclick="navigateTo('home')">Home</button>
+                <button class="nav-link" data-target="about" onclick="navigateTo('about')">About</button>
+                <button class="nav-link" data-target="experience" onclick="navigateTo('experience')">Experience</button>
+                <button class="nav-link" data-target="biomerchant" onclick="navigateTo('biomerchant')">BioMerchant</button>
+                <button class="nav-link" data-target="leadership" onclick="navigateTo('leadership')">Leadership</button>
+                <button class="nav-link" data-target="achievements" onclick="navigateTo('achievements')">Achievements</button>
+                <button class="nav-link" data-target="skills" onclick="navigateTo('skills')">Skills</button>
+                <button class="nav-link" data-target="contact" onclick="navigateTo('contact')">Contact</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-6 py-12">
+
+        <!-- ================= HOME PAGE ================= -->
+        <section id="home" class="page-section active">
+            <div class="grid md:grid-cols-3 gap-10 items-center mb-16">
+                <div class="md:col-span-2 space-y-6">
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-stone-900 leading-tight">
+                        Abdul Haseeb
+                    </h1>
+                    <p class="text-xl text-brand-700 font-medium text-justify">
+                        Biotechnology undergraduate at IIUI, working across microbiology, molecular biology and product development.
+                    </p>
+                    <p class="text-stone-600 leading-relaxed text-lg text-justify">
+                        I've formulated botanical personal-care products with BioMerchant, a student startup awarded at IIUI Job Fair 2025 and 2026. I've completed research internships at NIGAB and PCSIR, and I serve as General Secretary of the Biotechnology Squad.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button onclick="navigateTo('experience')" class="bg-brand-800 text-white px-6 py-3 rounded font-medium hover:bg-brand-900 transition-colors">
+                            View experience
+                        </button>
+                        <button onclick="navigateTo('contact')" class="bg-white border border-stone-300 text-stone-700 px-6 py-3 rounded font-medium hover:bg-stone-50 transition-colors">
+                            Contact me
+                        </button>
+                        <a href="Cv_Abdul_Haseeb.pdf" download="Abdul_Haseeb_CV.pdf" class="inline-flex items-center justify-center bg-white border border-brand-700 text-brand-700 px-6 py-3 rounded font-medium hover:bg-brand-50 transition-colors">
+                            Download CV
+                        </a>
+                    </div>
+                </div>
+                <div class="md:col-span-1 flex justify-center">
+                    <div class="w-full max-w-[280px] md:max-w-none aspect-[3/4] rounded-2xl overflow-hidden shadow-md border border-stone-200 bg-white">
+                        <img src="Abdul Haseeb.jpg" alt="Abdul Haseeb portrait" class="w-full h-full object-cover object-center">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-10 flex items-center justify-between">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-stone-400">Highlights</h2>
+                <div class="h-[1px] bg-stone-200 flex-grow ml-6"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Highlight Card 1 -->
+                <div class="card card-interactive relative overflow-hidden group flex flex-col justify-between" onclick="navigateTo('nigab-detail')">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-stone-200 group-hover:bg-brand-600 transition-colors"></div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-3 text-xs font-bold text-brand-700 uppercase tracking-widest bg-brand-50 border border-brand-100 px-3 py-1.5 rounded-full w-fit">
+                            <span>🧬</span> Research & Laboratory Experience
+                        </div>
+                        <h3 class="font-serif font-bold text-xl mb-3 text-stone-900 group-hover:text-brand-800 transition-colors">NIGAB — National Institute for Genomics & Advanced Biotechnology</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            Hands-on exposure to molecular biology workflows including DNA/RNA extraction, gel electrophoresis, primer design, and plant stress experiments, alongside exposure to genome-editing workflows.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 text-brand-700 text-sm font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                        Explore NIGAB experience &rarr;
+                    </div>
+                </div>
+
+                <!-- Highlight Card 2 -->
+                <div class="card card-interactive relative overflow-hidden group flex flex-col justify-between" onclick="navigateTo('biomerchant')">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-stone-200 group-hover:bg-brand-600 transition-colors"></div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-3 text-xs font-bold text-brand-700 uppercase tracking-widest bg-brand-50 border border-brand-100 px-3 py-1.5 rounded-full w-fit">
+                            <span>🚀</span> Biotechnology Entrepreneurship
+                        </div>
+                        <h3 class="font-serif font-bold text-xl mb-3 text-stone-900 group-hover:text-brand-800 transition-colors">BioMerchant — Student Startup</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            Explored botanical-based product development from ingredient research and formulation to prototyping, branding, and packaging. <strong>3rd Best Startup — IIUI Job Fair 2025</strong>.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 text-brand-700 text-sm font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                        Explore BioMerchant case study &rarr;
+                    </div>
+                </div>
+
+                <!-- Highlight Card 3 -->
+                <div class="card card-interactive relative overflow-hidden group flex flex-col justify-between" onclick="navigateTo('leadership')">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-stone-200 group-hover:bg-brand-600 transition-colors"></div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-3 text-xs font-bold text-brand-700 uppercase tracking-widest bg-brand-50 border border-brand-100 px-3 py-1.5 rounded-full w-fit">
+                            <span>👥</span> Leadership & Community
+                        </div>
+                        <h3 class="font-serif font-bold text-xl mb-3 text-stone-900 group-hover:text-brand-800 transition-colors">Biotech Squad & Student Societies</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            Serving as <strong>General Secretary</strong> at Biotech Squad while contributing to PBSS and Bio Beacon, with experience in team coordination, scientific engagement, student development, and event execution.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 text-brand-700 text-sm font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                        Explore Leadership roles &rarr;
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ABOUT PAGE ================= -->
+        <section id="about" class="page-section">
+            <h1 class="text-3xl font-serif font-bold mb-8">About</h1>
+            <div class="space-y-6 text-stone-700 leading-relaxed text-lg text-justify">
+                <p class="text-justify">
+                    I am a BS Biotechnology student (2023–2027) at the International Islamic University Islamabad (IIUI), with a CGPA of 3.76/4.00. I completed my F.Sc. Pre-Medical education with Grade A at the Pakistan International School Jeddah, Saudi Arabia. My academic interests are centered around microbiology, molecular biology, antimicrobial resistance (AMR), and bioinformatics, with a growing interest in how biotechnology research can eventually contribute to practical and commercially relevant solutions. I am particularly interested in natural antimicrobial research and the use of biological data to better understand microbial and molecular systems.
+                </p>
+                <p class="text-justify">
+                    Through internships and laboratory exposure at NIGAB and PCSIR, I have gained practical experience with research workflows including DNA and RNA extraction, gel electrophoresis, primer design, plant-related experiments, environmental microbiology, and exposure to green nanoparticle synthesis. These experiences have helped me understand how laboratory research is planned, conducted, documented, and interpreted.
+                </p>
+                <p class="text-justify">
+                    Alongside my academic work, I have explored biotechnology entrepreneurship through BioMerchant, where I worked on botanical-based product concepts and gained experience in formulation, basic stability considerations, branding, and web design. This experience strengthened my interest in connecting scientific knowledge with product development and entrepreneurship.
+                </p>
+                <p class="text-justify">
+                    At this stage, I am focused on strengthening my skills in biotechnology research, bioinformatics, data analysis, and scientific communication while developing a stronger foundation for future graduate studies and biotechnology entrepreneurship.
+                </p>
+                <div class="bg-white border border-stone-200 rounded-lg p-6 mt-8">
+                    <h3 class="font-serif font-bold text-lg mb-3">Relevant Coursework</h3>
+                    <p class="text-sm text-justify">
+                        Molecular Biology, Microbiology, Genomics & Proteomics, Human Genetics, Bioinformatics, Industrial Biotechnology, Microbial Biotechnology
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= EXPERIENCE OVERVIEW PAGE ================= -->
+        <section id="experience" class="page-section">
+            <h1 class="text-3xl font-serif font-bold mb-8">Experience</h1>
+            <div class="space-y-6">
+                <!-- NIGAB Card -->
+                <div class="card card-interactive" onclick="navigateTo('nigab-detail')">
+                    <div class="flex flex-row justify-between items-baseline gap-4 mb-2">
+                        <h2 class="font-serif font-bold text-xl text-brand-800 truncate">National Institute for Genomics and Advanced Biotechnology (NIGAB)</h2>
+                        <span class="text-sm text-stone-500 font-medium whitespace-nowrap">29 June - 3rd Aug 2026</span>
+                    </div>
+                    <p class="text-stone-700 font-medium mb-3">Genome Editing Laboratory</p>
+                    <p class="text-stone-600 text-sm truncate">Rotation across Genome Editing, Gene Cloning, Functional Genomics, Inoculation, and Biocontainment laboratories. Hands-on exposure to plant stress phenotyping and in silico primer design.</p>
+                    <div class="mt-4 text-brand-700 text-sm font-medium">Read details &rarr;</div>
+                </div>
+
+                <!-- PCSIR Card -->
+                <div class="card card-interactive" onclick="navigateTo('pcsir-detail')">
+                    <div class="flex flex-row justify-between items-baseline gap-4 mb-2">
+                        <h2 class="font-serif font-bold text-xl text-brand-800 truncate">PCSIR Labs Complex, Islamabad</h2>
+                        <span class="text-sm text-stone-500 font-medium whitespace-nowrap">20 Nov 2025 - 20 Feb 2026</span>
+                    </div>
+                    <p class="text-stone-700 font-medium mb-3">Environmental, Microbiology and Biotechnology laboratories</p>
+                    <p class="text-stone-600 text-sm truncate">Exposure to applied laboratory methods, water-quality testing, microbiological methods, instrumentation and hands-on green nanoparticle synthesis.</p>
+                    <div class="mt-4 text-brand-700 text-sm font-medium">Read details &rarr;</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= NIGAB DETAIL PAGE ================= -->
+        <section id="nigab-detail" class="page-section">
+            <button onclick="navigateTo('experience')" class="inline-flex items-center text-sm text-brand-700 font-semibold mb-8 hover:text-brand-900 transition-colors group">
+                <svg class="w-4 h-4 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Experience
+            </button>
+
+            <!-- Modern Header Banner -->
+            <div class="relative bg-white border border-stone-200 rounded-2xl p-8 mb-10 overflow-hidden shadow-sm">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-700"></div>
+                <div class="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 bg-brand-50 rounded-full opacity-60 blur-2xl pointer-events-none"></div>
+                
+                <h1 class="text-3xl md:text-4xl font-serif font-bold text-stone-900 mb-3 relative z-10">National Institute for Genomics and Advanced Biotechnology (NIGAB)</h1>
+                <p class="text-xl text-brand-800 font-medium relative z-10 mb-4">Genome Editing Laboratory</p>
+                
+                <div class="flex flex-wrap items-center gap-4 text-sm text-stone-600 relative z-10">
+                    <span class="flex items-center font-medium bg-stone-100 px-3 py-1.5 rounded-full">
+                        <svg class="w-4 h-4 mr-1.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        29 June - 3rd Aug 2026
+                    </span>
+                    <span class="flex items-center font-medium bg-stone-100 px-3 py-1.5 rounded-full">
+                        <svg class="w-4 h-4 mr-1.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        Supervisor: Dr M. Uzair (ASO)
+                    </span>
+                </div>
+                
+                <div class="mt-6 pt-5 border-t border-stone-100 relative z-10">
+                    <p class="text-xs font-bold text-stone-400 uppercase tracking-wider mb-3">Laboratory Rotation</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs font-semibold text-brand-900 bg-brand-50 border border-brand-100 px-3 py-1 rounded">Genome Editing</span>
+                        <span class="text-xs font-semibold text-brand-900 bg-brand-50 border border-brand-100 px-3 py-1 rounded">Gene Cloning</span>
+                        <span class="text-xs font-semibold text-brand-900 bg-brand-50 border border-brand-100 px-3 py-1 rounded">Functional Genomics</span>
+                        <span class="text-xs font-semibold text-brand-900 bg-brand-50 border border-brand-100 px-3 py-1 rounded">Inoculation</span>
+                        <span class="text-xs font-semibold text-brand-900 bg-brand-50 border border-brand-100 px-3 py-1 rounded">Biocontainment</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-12 text-stone-700 text-justify">
+                
+                <!-- What I set out to learn -->
+                <div class="bg-white border border-stone-200 p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="font-bold text-stone-900 uppercase tracking-widest text-xs">What I set out to learn</h3>
+                    </div>
+                    <p class="text-lg leading-relaxed font-medium text-stone-800 text-justify">
+                        How plant biotechnology research runs end to end: <span class="text-brand-800">tissue culture, genetic transformation, nucleic acid work, gene-expression analysis</span> and supporting <span class="text-brand-800">bioinformatics</span>.
+                    </p>
+                </div>
+
+                <!-- What I did -->
+                <div>
+                    <h3 class="font-bold text-stone-900 mb-5 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        What I Did
+                    </h3>
+                    <div class="grid gap-5">
+                        
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="mb-3">
+                                <span class="badge badge-peers !mb-0 shadow-sm">Did (with peers)</span>
+                            </div>
+                            <h4 class="font-bold text-stone-900 mb-2">Rice drought-stress phenotyping</h4>
+                            <p class="leading-relaxed text-stone-600 text-justify">
+                                Set up hydroponic rice seedlings in <strong>Hoagland solution</strong> in the glasshouse, supplied nutrients at the two-leaf stage, and applied <strong>PEG-6000</strong> osmotic stress at the four-leaf stage. Treatments: control, 10% PEG, 20% PEG, across 12 cultivars (nine commercial, three research lines). Root harvesting and snap-freezing were observed.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="mb-3">
+                                <span class="badge badge-did !mb-0 shadow-sm">Did</span>
+                            </div>
+                            <h4 class="font-bold text-stone-900 mb-2">In silico primer design</h4>
+                            <p class="leading-relaxed text-stone-600 text-justify">
+                                Retrieved a rice gene sequence from <strong>NCBI</strong> and designed primers in <strong>NCBI Primer-BLAST</strong>, balancing product size, melting temperature, specificity, GC content and self-complementarity; annotated binding sites in <strong>SnapGene</strong>. Also designed full-length cloning primers with a 5' <strong>GC clamp</strong>, a restriction site and a gene-specific sequence. Checked computationally only.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="mb-3">
+                                <span class="badge badge-supervised !mb-0 shadow-sm">Did (supervised)</span>
+                            </div>
+                            <h4 class="font-bold text-stone-900 mb-2">Written analysis of gel electrophoresis and PCR parameters</h4>
+                            <p class="leading-relaxed text-stone-600 text-justify">
+                                Analyzed how <strong>agarose concentration</strong>, ladder choice, voltage and run time depend on expected fragment size, common problems such as band smiling and smearing, and the core components of a <strong>PCR reaction</strong>.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- What I observed and studied -->
+                <div>
+                    <h3 class="font-bold text-stone-900 mb-5 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        What I Observed and Studied
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow md:col-span-2">
+                            <div class="mb-3">
+                                <span class="badge badge-observed !mb-0 shadow-sm">Observed</span>
+                            </div>
+                            <p class="leading-relaxed text-stone-600 text-justify">
+                                <strong>TRIzol</strong> and silica-column <strong>RNA extraction</strong>, <strong>genomic DNA extraction</strong>, <strong>agarose gel electrophoresis</strong>, <strong>PCR running</strong>, media preparation with pH calibration and autoclaving, wheat seed sterilization, <strong>Agrobacterium</strong> screening, and <strong>Agrobacterium-mediated CRISPR/Cas9 transformation</strong> of potato explants.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="mb-3">
+                                <span class="badge badge-observed !mb-0 shadow-sm">Observed</span>
+                            </div>
+                            <p class="leading-relaxed text-stone-600 text-justify">
+                                A nanotherapeutic mastitis model demonstrated in the biocontainment laboratory.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="mb-3">
+                                <span class="badge badge-studied !mb-0 shadow-sm">Studied</span>
+                            </div>
+                            <p class="leading-relaxed text-stone-600 text-justify">
+                                <strong>cDNA synthesis</strong> and <strong>RT-qPCR</strong> (reference genes, the comparative threshold method), and how phenotype data connect to <strong>GWAS</strong> and candidate genes for stress tolerance.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- What I learned -->
+                <div class="bg-brand-50 border border-brand-100 p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5 text-brand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547Z"></path></svg>
+                        <h3 class="font-bold text-brand-900 uppercase tracking-widest text-xs">What I learned</h3>
+                    </div>
+                    <p class="text-stone-800 leading-relaxed font-medium text-justify">
+                        Small deviations in pH, RNA handling or primer design change experimental outcomes. Computational primer checks can catch unsuitable candidates before reagents are spent. Techniques that seemed separate in coursework connect into one workflow.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= PCSIR DETAIL PAGE ================= -->
+        <section id="pcsir-detail" class="page-section">
+            <button onclick="navigateTo('experience')" class="inline-flex items-center text-sm text-brand-700 font-semibold mb-8 hover:text-brand-900 transition-colors group">
+                <svg class="w-4 h-4 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Experience
+            </button>
+
+            <!-- Modern Header Banner -->
+            <div class="relative bg-white border border-stone-200 rounded-2xl p-8 mb-10 overflow-hidden shadow-sm">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-700"></div>
+                <div class="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 bg-brand-50 rounded-full opacity-60 blur-2xl pointer-events-none"></div>
+                
+                <h1 class="text-3xl md:text-4xl font-serif font-bold text-stone-900 mb-3 relative z-10">PCSIR Labs Complex, Islamabad</h1>
+                <p class="text-xl text-brand-800 font-medium relative z-10 mb-4">Environmental, Microbiology and Biotechnology laboratories</p>
+                
+                <div class="flex flex-wrap items-center gap-4 text-sm text-stone-600 relative z-10">
+                    <span class="flex items-center font-medium bg-stone-100 px-3 py-1.5 rounded-full">
+                        <svg class="w-4 h-4 mr-1.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        20 Nov 2025 - 20 Feb 2026
+                    </span>
+                </div>
+                
+                <div class="mt-6 pt-5 border-t border-stone-100 relative z-10">
+                    <p class="text-xs font-bold text-stone-400 uppercase tracking-wider mb-3">Laboratory Rotation</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs font-semibold text-brand-900 bg-brand-50 border border-brand-100 px-3 py-1 rounded">Environmental Lab</span>
+                        <span class="text-xs font-semibold text-brand-900 bg-brand-50 border border-brand-100 px-3 py-1 rounded">Microbiology Lab</span>
+                        <span class="text-xs font-semibold text-brand-900 bg-brand-50 border border-brand-100 px-3 py-1 rounded">Biotechnology Lab</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-12 text-stone-700 text-justify">
+                
+                <!-- What I set out to learn -->
+                <div class="bg-white border border-stone-200 p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="font-bold text-stone-900 uppercase tracking-widest text-xs">What I set out to learn</h3>
+                    </div>
+                    <p class="text-lg leading-relaxed font-medium text-stone-800">
+                        How laboratory methods are applied to real quality and analysis work: <span class="text-brand-800">water-quality testing, standard microbiological methods, instrumentation</span> and <span class="text-brand-800">green nanoparticle synthesis</span>.
+                    </p>
+                </div>
+
+                <!-- What I did -->
+                <div>
+                    <h3 class="font-bold text-stone-900 mb-5 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        What I Did
+                    </h3>
+                    <div class="grid gap-5">
+                        
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="mb-3">
+                                <span class="badge badge-peers !mb-0 shadow-sm">Did (with peers)</span>
+                            </div>
+                            <h4 class="font-bold text-stone-900 mb-2">Green synthesis of nanoparticles</h4>
+                            <p class="leading-relaxed text-stone-600">
+                                Synthesized from five plant materials (moringa, hemp, fenugreek, flaxseed, beetroot): drying and grinding, water/ethanol extraction, sonication, filtration, <strong>zinc acetate-based synthesis</strong>, centrifugation and purification, drying, and <strong>UV-Vis analysis</strong>. <strong>UV-Vis</strong> peaks were observed for the moringa sample.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- What I observed -->
+                <div>
+                    <h3 class="font-bold text-stone-900 mb-5 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        What I Observed
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="mb-3">
+                                <span class="badge badge-observed !mb-0 shadow-sm">Observed</span>
+                            </div>
+                            <h4 class="font-bold text-stone-900 mb-2">Water Physicochemistry</h4>
+                            <p class="leading-relaxed text-stone-600">
+                                Analyzed <strong>pH</strong>, <strong>electrical conductivity</strong>, <strong>TDS</strong>, hardness, calcium, alkalinity, chloride, and sulfate, and learned how these are interpreted together.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="mb-3">
+                                <span class="badge badge-observed !mb-0 shadow-sm">Observed</span>
+                            </div>
+                            <h4 class="font-bold text-stone-900 mb-2">Standard Microbiological Methods</h4>
+                            <p class="leading-relaxed text-stone-600">
+                                <strong>APHA-based microbiology:</strong> total and heterotrophic plate counts, total and fecal coliforms, E. coli detection on <strong>EMB agar</strong>, membrane filtration, multiple tube fermentation and <strong>MPN</strong>.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow md:col-span-2">
+                            <div class="mb-3">
+                                <span class="badge badge-observed !mb-0 shadow-sm">Observed</span>
+                            </div>
+                            <h4 class="font-bold text-stone-900 mb-2">Analytical Instrumentation & Culture Techniques</h4>
+                            <p class="leading-relaxed text-stone-600">
+                                Streak, spread and pour plating methods; operation of instrumentation including pH and conductivity meters, analytical balance, <strong>UV-Vis</strong> spectrophotometer, <strong>HPLC</strong>, autoclave and incubator.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- What I learned -->
+                <div class="bg-brand-50 border border-brand-100 p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5 text-brand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        <h3 class="font-bold text-brand-900 uppercase tracking-widest text-xs">What I learned</h3>
+                    </div>
+                    <p class="text-stone-800 leading-relaxed font-medium">
+                        Calibration, accurate measurement and contamination control decide whether a result can be trusted. Standard methods exist so that results are comparable.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= BIOMERCHANT PAGE ================= -->
+        <section id="biomerchant" class="page-section">
+            
+            <!-- 1. Header & Executive Summary Cards -->
+            <div class="mb-12 border-b border-stone-200 pb-10">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="bg-brand-100 text-brand-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Startup Initiative</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-serif font-bold text-stone-900 mb-3">BioMerchant — R&D Formulation Assistant</h1>
+                <p class="text-lg text-stone-500 font-medium">Nov 2025 – Present · Student-led biotechnology initiative · Islamabad, Pakistan</p>
+                
+                <!-- 2. Recognition & Link Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
+                    <!-- Recognition Card -->
+                    <div class="bg-white border border-stone-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-center relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-400"></div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                            <h3 class="font-bold text-stone-900 uppercase tracking-widest text-xs">Recognition & Awards</h3>
+                        </div>
+                        <ul class="text-sm text-stone-700 space-y-3 font-medium">
+                            <li class="flex items-center gap-3">
+                                <span class="w-2 h-2 rounded-full bg-amber-400"></span> 
+                                1st Prize — IIUI Job Fair 2026
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-2 h-2 rounded-full bg-amber-400"></span> 
+                                3rd Best Startup — IIUI Job Fair 2025
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Website Link Card -->
+                    <div class="bg-white border border-stone-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-center items-start relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-600"></div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                            <h3 class="font-bold text-stone-900 uppercase tracking-widest text-xs">Project Portal</h3>
+                        </div>
+                        <p class="text-sm text-stone-500 mb-4">Explore the initiative's digital presence and product concepts.</p>
+                        <a href="#" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-brand-50 text-brand-700 border border-brand-200 rounded-lg hover:bg-brand-100 transition-colors text-sm font-semibold w-full sm:w-auto">
+                            Visit BioMerchant Website
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-12 text-stone-700 text-justify">
+                
+                <!-- 3. About & Role Grid -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="font-bold text-stone-900 mb-4 uppercase tracking-widest text-xs flex items-center gap-2">
+                            <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            About the Initiative
+                        </h3>
+                        <p class="leading-relaxed text-stone-600 text-justify">
+                            BioMerchant is a student-led biotechnology initiative based in Islamabad that explores botanical ingredients and biotechnology principles in the development of everyday personal-care products. The project aims to translate academic knowledge about biological materials into practical product concepts, combining botanical ingredient exploration, literature-based research, and basic product evaluation with early-stage entrepreneurship.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-stone-900 mb-4 uppercase tracking-widest text-xs flex items-center gap-2">
+                            <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            My Role — R&D & Formulation
+                        </h3>
+                        <p class="mb-4 text-stone-600">As an R&D Formulation Assistant, my realistic responsibilities included:</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start bg-white p-3 rounded-lg border border-stone-200 shadow-sm">
+                                <svg class="w-5 h-5 text-brand-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="text-sm font-medium text-justify">Conducting literature reviews on potential botanical ingredients.</span>
+                            </li>
+                            <li class="flex items-start bg-white p-3 rounded-lg border border-stone-200 shadow-sm">
+                                <svg class="w-5 h-5 text-brand-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="text-sm font-medium text-justify">Performing preliminary/student-level physical evaluations.</span>
+                            </li>
+                            <li class="flex items-start bg-white p-3 rounded-lg border border-stone-200 shadow-sm">
+                                <svg class="w-5 h-5 text-brand-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="text-sm font-medium text-justify">Documenting development processes and assisting with presentation.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 4. Direct Formulation Cards -->
+                <div>
+                    <h3 class="font-bold text-stone-900 mb-2 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        Direct Formulation Contributions
+                    </h3>
+                    <p class="mb-6 text-sm text-stone-500 font-medium">Products I directly helped formulate alongside teammates (prototype development stage):</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Sunscreen -->
+                        <div class="bg-white border border-stone-200 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full relative overflow-hidden group">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-stone-200 group-hover:bg-brand-500 transition-colors"></div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h4 class="font-serif font-bold text-stone-900 text-xl mb-3">Botanical Sunscreen</h4>
+                                <p class="text-stone-600 text-sm leading-relaxed mb-6 text-justify">Explored botanical ingredients alongside <strong>zinc oxide</strong> as the intended UV-filtering component. Focused on prototype formulation, refinement, and physical evaluation.</p>
+                                <div class="mt-auto pt-4 border-t border-stone-100 bg-stone-50/50 -mx-6 px-6 -mb-6 pb-6">
+                                    <p class="text-xs text-stone-500 italic">Note: No verified SPF or UV-protection claims are made. Preliminary development only.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Cream -->
+                        <div class="bg-white border border-stone-200 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full relative overflow-hidden group">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-stone-200 group-hover:bg-brand-500 transition-colors"></div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h4 class="font-serif font-bold text-stone-900 text-xl mb-3">Hand & Foot Cream</h4>
+                                <p class="text-stone-600 text-sm leading-relaxed mb-6 text-justify">Developed a <strong>botanical formulation</strong> prototype. Iterated based on texture and consistency evaluation, physical observations, and sensory refinement.</p>
+                                <div class="mt-auto pt-4 border-t border-stone-100 bg-stone-50/50 -mx-6 px-6 -mb-6 pb-6">
+                                    <p class="text-xs text-stone-500 italic">Focused purely on structural consistency and sensory application profiles.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Beard Oil -->
+                        <div class="bg-white border border-stone-200 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full relative overflow-hidden group">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-stone-200 group-hover:bg-brand-500 transition-colors"></div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h4 class="font-serif font-bold text-stone-900 text-xl mb-3">Beard Oil</h4>
+                                <p class="text-stone-600 text-sm leading-relaxed mb-6 text-justify">Explored a plant-oil based formulation. Focused on ingredient selection, prototype development, and adjusting for sensory and application considerations.</p>
+                                <div class="mt-auto pt-4 border-t border-stone-100 bg-stone-50/50 -mx-6 px-6 -mb-6 pb-6">
+                                    <p class="text-xs text-stone-500 italic">Evaluated for viscosity, absorption rates, and phase stability.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Formulation Workflow Stepper -->
+                <div class="bg-white border border-stone-200 p-8 rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-stone-900 mb-2 uppercase tracking-widest text-xs text-center md:text-left">Iterative Workflow</h3>
+                    <p class="mb-8 text-sm text-stone-500 text-center md:text-left">Scientific literature guided early decisions, followed by practical experimentation for prototype feasibility.</p>
+                    
+                    <div class="flex flex-wrap justify-center md:justify-start items-center gap-y-4 gap-x-2">
+                        <!-- Step 1 -->
+                        <div class="px-4 py-2 bg-stone-100 text-stone-600 rounded-full text-sm font-medium shadow-sm border border-stone-200">Idea</div>
+                        <svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        
+                        <!-- Step 2 -->
+                        <div class="px-4 py-2 bg-stone-100 text-stone-600 rounded-full text-sm font-medium shadow-sm border border-stone-200">Literature Review</div>
+                        <svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        
+                        <!-- Step 3 -->
+                        <div class="px-4 py-2 bg-stone-100 text-stone-600 rounded-full text-sm font-medium shadow-sm border border-stone-200">Ingredient Selection</div>
+                        <svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        
+                        <!-- Step 4 (Highlighted) -->
+                        <div class="px-4 py-2 bg-brand-50 text-brand-700 border border-brand-200 rounded-full text-sm font-bold shadow-sm ring-2 ring-brand-100 ring-offset-1">Prototype Formulation</div>
+                        <svg class="w-4 h-4 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        
+                        <!-- Step 5 (Highlighted) -->
+                        <div class="px-4 py-2 bg-brand-50 text-brand-700 border border-brand-200 rounded-full text-sm font-bold shadow-sm ring-2 ring-brand-100 ring-offset-1">Evaluation & Refinement</div>
+                        <svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+
+                        <!-- Step 6 -->
+                        <div class="px-4 py-2 bg-stone-100 text-stone-600 rounded-full text-sm font-medium shadow-sm border border-stone-200">Documentation</div>
+                    </div>
+                </div>
+
+                <!-- 6. Two-Column Information -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Evaluation -->
+                    <div class="bg-stone-50 border border-stone-200 p-6 rounded-xl">
+                        <h3 class="font-bold text-stone-900 mb-3 uppercase tracking-widest text-xs">Evaluation & Preliminary Stability</h3>
+                        <p class="mb-3 text-sm text-stone-600">Selected prototypes were observed over their development and storage period for basic physical changes. This included monitoring:</p>
+                        <ul class="list-disc pl-5 text-sm space-y-1.5 text-stone-700 mb-4 font-medium">
+                            <li>General appearance and visible <strong>phase separation</strong></li>
+                            <li>Consistency and structural homogeneity</li>
+                            <li><strong>pH</strong> levels (where relevant to the formulation)</li>
+                        </ul>
+                        <p class="text-xs italic text-stone-500 border-t border-stone-200 pt-3">
+                            * Student-level evaluations to guide refinement, not formal stability studies.
+                        </p>
+                    </div>
+
+                    <!-- Wider Team & Beyond -->
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-bold text-stone-900 mb-2 uppercase tracking-widest text-xs">Wider Team Contributions</h3>
+                            <p class="text-sm text-stone-600 leading-relaxed">
+                                I assisted teammates with their led prototypes, including an anti-acne serum, hydrating gel, face mist, lip gel, and a DEET-free mosquito-repellent. Not all concepts progressed to presentation.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-stone-900 mb-2 uppercase tracking-widest text-xs">Beyond Formulation</h3>
+                            <p class="text-sm text-stone-600 leading-relaxed">
+                                Gained exposure to product communication by contributing to the brand's logo identity, conceptualizing packaging, and assisting in the design of the initiative's digital portal.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Premium Reflection Box -->
+                <div class="relative bg-brand-900 rounded-2xl shadow-lg p-8 md:p-10 overflow-hidden">
+                    <!-- Decorative element -->
+                    <svg class="absolute -bottom-8 -right-8 w-48 h-48 text-brand-800 opacity-40 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-brand-800 text-brand-100 p-2 rounded-lg">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547Z"></path></svg>
+                            </span>
+                            <h3 class="font-bold text-brand-50 uppercase tracking-widest text-xs">Reflection</h3>
+                        </div>
+                        <p class="text-lg text-brand-50 leading-relaxed font-medium md:w-11/12">
+                            A formulation that looks promising in literature does not automatically translate into a stable or validated product. My work with BioMerchant demonstrated that product development is highly iterative—requiring continuous physical evaluation and refinement. Moving from a prototype concept to a potential commercial product requires rigorous validation, documentation, and a strong understanding of regulatory considerations.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= LEADERSHIP OVERVIEW PAGE ================= -->
+        <section id="leadership" class="page-section">
+            <h1 class="text-3xl font-serif font-bold mb-8">Leadership</h1>
+            <div class="space-y-6">
+                
+                <!-- BTS Card -->
+                <div class="card card-interactive" onclick="navigateTo('bts-detail')">
+                    <div class="flex flex-row justify-between items-baseline gap-4 mb-2">
+                        <h2 class="font-serif font-bold text-xl text-brand-800 truncate">Biotech Squad (BTS)</h2>
+                        <span class="text-sm text-stone-500 font-medium whitespace-nowrap">Nov 2025 - Present</span>
+                    </div>
+                    <p class="text-stone-700 font-medium mb-3">General Secretary</p>
+                    <p class="text-stone-600 text-sm truncate">Student-led biotechnology organization at IIUI. Coordinated team activities, student development, and professional sessions.</p>
+                    <div class="mt-4 text-brand-700 text-sm font-medium">Read details &rarr;</div>
+                </div>
+
+                <!-- PBSS Card -->
+                <div class="card card-interactive" onclick="navigateTo('pbss-detail')">
+                    <div class="flex flex-row justify-between items-baseline gap-4 mb-2">
+                        <h2 class="font-serif font-bold text-xl text-brand-800 truncate">Pakistan Biotechnology Students' Society (PBSS)</h2>
+                        <span class="text-sm text-stone-500 font-medium whitespace-nowrap">Dec 2025 - Present</span>
+                    </div>
+                    <p class="text-stone-700 font-medium mb-3">Executive Team Member</p>
+                    <p class="text-stone-600 text-sm truncate">Helped execute plans and manage events, including the One Health Symposium and IIUI Job Fair 2025.</p>
+                    <div class="mt-4 text-brand-700 text-sm font-medium">Read details &rarr;</div>
+                </div>
+
+                <!-- Bio Beacon Card -->
+                <div class="card card-interactive" onclick="navigateTo('biobeacon-detail')">
+                    <div class="flex flex-row justify-between items-baseline gap-4 mb-2">
+                        <h2 class="font-serif font-bold text-xl text-brand-800 truncate">Bio Beacon Society (BBS)</h2>
+                        <span class="text-sm text-stone-500 font-medium whitespace-nowrap">Jan 2024 - Jun 2025</span>
+                    </div>
+                    <p class="text-stone-700 font-medium mb-3">Executive Team Member</p>
+                    <p class="text-stone-600 text-sm truncate">Helped execute plans and manage events for a student-led society, including Bio-Fest 2024 and 2025.</p>
+                    <div class="mt-4 text-brand-700 text-sm font-medium">Read details &rarr;</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= LEADERSHIP DETAILS (BTS) ================= -->
+        <section id="bts-detail" class="page-section">
+            <button onclick="navigateTo('leadership')" class="inline-flex items-center text-sm text-brand-700 font-semibold mb-8 hover:text-brand-900 transition-colors group">
+                <svg class="w-4 h-4 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Leadership
+            </button>
+
+            <!-- Modern Header Banner -->
+            <div class="relative bg-white border border-stone-200 rounded-2xl p-8 mb-10 overflow-hidden shadow-sm">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-700"></div>
+                <div class="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 bg-brand-50 rounded-full opacity-60 blur-2xl pointer-events-none"></div>
+                
+                <h1 class="text-3xl md:text-4xl font-serif font-bold text-stone-900 mb-3 relative z-10">Biotech Squad (BTS)</h1>
+                <p class="text-xl text-brand-800 font-medium relative z-10 mb-4">General Secretary & Core Team Member</p>
+                
+                <div class="flex flex-wrap items-center gap-4 text-sm text-stone-600 relative z-10">
+                    <span class="flex items-center font-medium bg-stone-100 px-3 py-1.5 rounded-full">
+                        <svg class="w-4 h-4 mr-1.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Nov 2025 - Present
+                    </span>
+                </div>
+            </div>
+
+            <div class="space-y-12 text-stone-700 text-justify">
+                
+                <!-- About BTS Card -->
+                <div class="bg-white border border-stone-200 p-6 md:p-8 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="font-bold text-stone-900 uppercase tracking-widest text-xs">About BTS</h3>
+                    </div>
+                    <p class="text-lg leading-relaxed font-medium text-stone-800 text-justify">
+                        Biotech Squad (BTS) is a student-led community for biological and applied sciences focused on connecting students with learning opportunities, professional development, and industry exposure. Through fellowships, scientific activities, workshops, webinars, and collaborative initiatives, BTS aims to create a space where students can learn from one another and connect with professionals beyond their university environment.
+                    </p>
+                </div>
+
+                <!-- My Role Card -->
+                <div class="bg-white border border-stone-200 p-6 md:p-8 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <h3 class="font-bold text-stone-900 uppercase tracking-widest text-xs">My Role</h3>
+                    </div>
+                    <p class="text-stone-600 leading-relaxed text-lg text-justify">
+                        As part of the leadership team, I contribute to BTS's day-to-day coordination, program development, scientific activities, documentation, and student engagement.
+                    </p>
+                </div>
+
+                <!-- What I Work On (Clean Grid of Category Cards) -->
+                <div>
+                    <h3 class="font-bold text-stone-900 mb-5 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        What I Work On
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Student Development
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Coordinating fellowship activities, skill-building sessions, and scholarship-focused webinars.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Scientific Engagement
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Serving as <strong>Journal Club Coordinator</strong>, organizing research discussions and curating scientific resources for students.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Professional Development
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Designing and delivering sessions on email etiquette, spreadsheets and data management, and document formatting.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Documentation & Operations
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Developing structured documentation and tracking systems to improve organizational continuity and day-to-day coordination.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow md:col-span-2">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Team & Event Coordination
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Working with different teams to plan, organize, and execute programs, while supporting communication, follow-up, and execution.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Key Contributions (Distinct Highlight Cards) -->
+                <div>
+                    <h3 class="font-bold text-stone-900 mb-5 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Key Contributions
+                    </h3>
+                    <div class="space-y-6">
+                        
+                        <div class="bg-white p-6 md:p-8 rounded-xl border border-stone-200 shadow-sm">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-brand-100 text-brand-800 font-bold text-xs">1</span>
+                                <h4 class="font-serif font-bold text-xl text-stone-900">Building an Organizational Documentation System</h4>
+                            </div>
+                            <p class="text-stone-600 leading-relaxed pl-10">
+                                When I joined BTS, there was limited formal documentation and tracking infrastructure. I took the initiative to develop a structured system for organizing records, tracking activities, and maintaining important organizational information. This gave the team a more consistent way to document its work and manage ongoing activities.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 md:p-8 rounded-xl border border-stone-200 shadow-sm">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-brand-100 text-brand-800 font-bold text-xs">2</span>
+                                <h4 class="font-serif font-bold text-xl text-stone-900">Journal Club Coordination</h4>
+                            </div>
+                            <p class="text-stone-600 leading-relaxed pl-10">
+                                As <strong>Journal Club Coordinator</strong>, I help organize regular research-focused sessions where students engage with scientific papers, discuss emerging topics in life sciences, and develop their ability to critically read and discuss research.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 md:p-8 rounded-xl border border-stone-200 shadow-sm">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-brand-100 text-brand-800 font-bold text-xs">3</span>
+                                <h4 class="font-serif font-bold text-xl text-stone-900">Program & Event Coordination</h4>
+                            </div>
+                            <p class="text-stone-600 leading-relaxed pl-10">
+                                I have contributed to the planning and execution of multiple BTS initiatives, including fellowship activities, professional development sessions, webinars, and student-focused programs. My responsibilities have included coordinating team members, organizing workflows, preparing communication and supporting materials, following up on tasks, and helping ensure activities are delivered smoothly.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 md:p-8 rounded-xl border border-stone-200 shadow-sm">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-brand-100 text-brand-800 font-bold text-xs">4</span>
+                                <h4 class="font-serif font-bold text-xl text-stone-900">Student Skill Development</h4>
+                            </div>
+                            <p class="text-stone-600 leading-relaxed pl-10">
+                                I have also contributed directly to practical skill-building within BTS, leading sessions covering professional communication, spreadsheets and data management, document formatting, CV and portfolio development, LinkedIn personal branding, and video editing. These sessions were designed around practical skills students can immediately apply in their academic and professional work.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Featured Reflection Box -->
+                <div class="relative bg-brand-900 rounded-2xl shadow-lg p-8 md:p-10 overflow-hidden">
+                    <svg class="absolute -bottom-8 -right-8 w-48 h-48 text-brand-800 opacity-40 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-brand-800 text-brand-100 p-2 rounded-lg">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            </span>
+                            <h3 class="font-bold text-brand-50 uppercase tracking-widest text-xs">What Leadership Has Taught Me</h3>
+                        </div>
+                        <p class="text-lg text-brand-50 leading-relaxed font-medium md:w-11/12">
+                            My experience with BTS has taught me that leadership is not simply about directing people. It is about building systems, taking ownership, communicating clearly, and helping a team turn ideas into execution. Working across scientific activities, student development, documentation, and event coordination has strengthened my ability to manage multiple responsibilities while working with different people and priorities. Most importantly, it has shown me the value of creating systems that continue to be useful beyond a single event or individual.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= LEADERSHIP DETAILS (PBSS) ================= -->
+        <section id="pbss-detail" class="page-section">
+            <button onclick="navigateTo('leadership')" class="inline-flex items-center text-sm text-brand-700 font-semibold mb-8 hover:text-brand-900 transition-colors group">
+                <svg class="w-4 h-4 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Leadership
+            </button>
+
+            <!-- Modern Header Banner -->
+            <div class="relative bg-white border border-stone-200 rounded-2xl p-8 mb-10 overflow-hidden shadow-sm">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-700"></div>
+                <div class="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 bg-brand-50 rounded-full opacity-60 blur-2xl pointer-events-none"></div>
+                
+                <h1 class="text-3xl md:text-4xl font-serif font-bold text-stone-900 mb-3 relative z-10">Pakistan Biotechnology Students' Society (PBSS)</h1>
+                <p class="text-xl text-brand-800 font-medium relative z-10 mb-4">Executive Team Member</p>
+                
+                <div class="flex flex-wrap items-center gap-4 text-sm text-stone-600 relative z-10">
+                    <span class="flex items-center font-medium bg-stone-100 px-3 py-1.5 rounded-full">
+                        <svg class="w-4 h-4 mr-1.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        December 2025 – Present
+                    </span>
+                </div>
+            </div>
+
+            <div class="space-y-12 text-stone-700 text-justify">
+                
+                <!-- About PBSS Card -->
+                <div class="bg-white border border-stone-200 p-6 md:p-8 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="font-bold text-stone-900 uppercase tracking-widest text-xs">About PBSS</h3>
+                    </div>
+                    <p class="text-lg leading-relaxed font-medium text-stone-800 text-justify">
+                        The <strong>Pakistan Biotechnology Students’ Society (PBSS)</strong> is a student-led platform founded in 2016 and re-established in 2025 to connect students, researchers, and professionals in biotechnology and related fields. Through scientific events, workshops, seminars, competitions, and networking initiatives, PBSS creates opportunities for students to learn, collaborate, exchange ideas, and explore the broader biotechnology landscape, with a focus on <strong>scientific engagement, leadership development, knowledge exchange, and professional networking</strong>.
+                    </p>
+                </div>
+
+                <!-- Contributions Grid -->
+                <div>
+                    <h3 class="font-bold text-stone-900 mb-5 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        Contributions
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Event Coordination
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Supported the planning and execution of major initiatives, including the <strong>One Health Symposium</strong>, <strong>IIUI Job Fair 2025</strong>, and <strong>IIUI Job Fair 2026</strong>.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Job Fair 2025 & 2026
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Contributed to events involving final-year students from across departments, with showcases featuring student projects and businesses, providing a platform for students to present their work and ideas.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Team Coordination
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Worked with fellow executive members and volunteers to coordinate tasks, communication, and event-day responsibilities.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Program Execution
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Assisted with operational planning and on-ground execution to help ensure activities were organized and delivered effectively.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow md:col-span-2">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Student Engagement
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Contributed to initiatives aimed at connecting biotechnology students with academic, professional, and career-development opportunities.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Featured Reflection Box -->
+                <div class="relative bg-brand-900 rounded-2xl shadow-lg p-8 md:p-10 overflow-hidden">
+                    <svg class="absolute -bottom-8 -right-8 w-48 h-48 text-brand-800 opacity-40 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-brand-800 text-brand-100 p-2 rounded-lg">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            </span>
+                            <h3 class="font-bold text-brand-50 uppercase tracking-widest text-xs">What I Gained</h3>
+                        </div>
+                        <p class="text-lg text-brand-50 leading-relaxed font-medium md:w-11/12">
+                            My involvement with PBSS has strengthened my experience in event coordination, teamwork, professional communication, and collaborative execution within a larger student organization, complementing my more extensive leadership and operational responsibilities within Biotech Squad.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= LEADERSHIP DETAILS (Bio Beacon) ================= -->
+        <section id="biobeacon-detail" class="page-section">
+            <button onclick="navigateTo('leadership')" class="inline-flex items-center text-sm text-brand-700 font-semibold mb-8 hover:text-brand-900 transition-colors group">
+                <svg class="w-4 h-4 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Leadership
+            </button>
+
+            <!-- Modern Header Banner -->
+            <div class="relative bg-white border border-stone-200 rounded-2xl p-8 mb-10 overflow-hidden shadow-sm">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-700"></div>
+                <div class="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 bg-brand-50 rounded-full opacity-60 blur-2xl pointer-events-none"></div>
+                
+                <h1 class="text-3xl md:text-4xl font-serif font-bold text-stone-900 mb-3 relative z-10">Bio Beacon Society (BBS)</h1>
+                <p class="text-xl text-brand-800 font-medium relative z-10 mb-4">Executive Team Member</p>
+                
+                <div class="flex flex-wrap items-center gap-4 text-sm text-stone-600 relative z-10">
+                    <span class="flex items-center font-medium bg-stone-100 px-3 py-1.5 rounded-full">
+                        <svg class="w-4 h-4 mr-1.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        January 2024 – June 2025
+                    </span>
+                </div>
+            </div>
+
+            <div class="space-y-12 text-stone-700 text-justify">
+                
+                <!-- About BBS Card -->
+                <div class="bg-white border border-stone-200 p-6 md:p-8 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="font-bold text-stone-900 uppercase tracking-widest text-xs">ABOUT BBS</h3>
+                    </div>
+                    <p class="text-lg leading-relaxed font-medium text-stone-800">
+                        <strong>Bio Beacon Society</strong> is a student-led platform focused on helping students explore opportunities across biology and biotechnology. Through <strong>workshops, seminars, hands-on training, and scientific activities</strong>, the society aims to strengthen students' knowledge and practical skills while introducing them to emerging trends in research, innovation, and the broader life sciences landscape.
+                    </p>
+                </div>
+
+                <!-- Contributions Grid -->
+                <div>
+                    <h3 class="font-bold text-stone-900 mb-5 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        Contributions
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Bio-Fest Coordination
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Actively participated in organizing and executing <strong>Bio-Fest 2024 and 2025</strong>, supporting knowledge-sharing events, workshops, and scientific discussions involving students, faculty, and researchers.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Event & Session Support
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Assisted with event timelines, speaker coordination, session management, and communication to help activities run smoothly across multiple events.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Scientific Engagement
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Helped turn academic and study-related topics into accessible discussions, encouraging students to engage with scientific concepts and participate in society activities.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Networking & Exposure
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Interacted with biotechnology students, faculty, and professionals, gaining exposure to emerging research areas and academic opportunities.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow md:col-span-2">
+                            <h4 class="font-bold text-stone-900 mb-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                Team Collaboration
+                            </h4>
+                            <p class="leading-relaxed text-stone-600 text-sm">
+                                Worked alongside the society's executive team to coordinate activities and responsibilities, strengthening practical experience in organization, teamwork, communication, and analytical thinking.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Featured Reflection Box -->
+                <div class="relative bg-brand-900 rounded-2xl shadow-lg p-8 md:p-10 overflow-hidden">
+                    <svg class="absolute -bottom-8 -right-8 w-48 h-48 text-brand-800 opacity-40 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-brand-800 text-brand-100 p-2 rounded-lg">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            </span>
+                            <h3 class="font-bold text-brand-50 uppercase tracking-widest text-xs">What I Gained</h3>
+                        </div>
+                        <p class="text-lg text-brand-50 leading-relaxed font-medium md:w-11/12">
+                            My experience with Bio Beacon strengthened my foundation in event coordination, teamwork, scientific communication, organization, and analytical thinking, while giving me early experience working within a student-led scientific organization and engaging with the broader biotechnology community.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= ACHIEVEMENTS PAGE ================= -->
+        <section id="achievements" class="page-section">
+            <h1 class="text-3xl font-serif font-bold mb-8">Achievements and Proofs</h1>
+            <div class="space-y-6">
+                
+                <div class="card p-8">
+                    <h2 class="font-serif font-bold text-2xl text-stone-900 mb-2">1st Prize, IIUI Job Fair 2026</h2>
+                    <p class="text-brand-800 font-semibold text-base mb-4">BioMerchant</p>
+                    <p class="text-stone-700 text-base leading-relaxed">
+                        Awarded 1st prize by ORIC among competing startups, recognizing commercial and technical viability.
+                    </p>
+                </div>
+
+                <div class="card p-8">
+                    <h2 class="font-serif font-bold text-2xl text-stone-900 mb-2">3rd Best Startup, IIUI Job Fair 2025</h2>
+                    <p class="text-brand-800 font-semibold text-base mb-4">BioMerchant</p>
+                    <p class="text-stone-700 text-base leading-relaxed mb-3">
+                        Awarded by Cosmopro and SDPC among roughly 50 startups (Dec 2025).
+                    </p>
+                    <p class="text-stone-500 text-xs italic border-t border-stone-100 pt-3">
+                        Disclosure: I was also on the PBSS executive team helping organize this event.
+                    </p>
+                </div>
+
+                <div class="card p-8">
+                    <h2 class="font-serif font-bold text-2xl text-stone-900 mb-2">1st Prize, Bio-Fest 2024, Scientific Poster Competition</h2>
+                    <p class="text-brand-800 font-semibold text-base mb-4">"Extremophiles in Industrial Biotechnology"</p>
+                    <p class="text-stone-700 text-base leading-relaxed mb-3">
+                        Won 1st place for a comprehensive literature-based scientific poster.
+                    </p>
+                    <p class="text-stone-500 text-xs italic border-t border-stone-100 pt-3">
+                        Disclosure: I was an executive team member of the Bio Beacon Society, which organizes Bio-Fest.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SKILLS PAGE ================= -->
+        <section id="skills" class="page-section">
+            <h1 class="text-3xl font-serif font-bold mb-8">Skills</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                
+                <!-- Category 1: Laboratory & Biotechnology -->
+                <div class="card bg-white hover:shadow-md transition-shadow duration-300">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-stone-100">
+                        <span class="text-2xl">🧬</span>
+                        <h2 class="font-serif font-bold text-lg text-brand-900">Laboratory & Biotechnology</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">DNA Extraction</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">RNA Extraction</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Gel Electrophoresis</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">PCR</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">In-silico Primer Design</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Bacterial Culture & Aseptic Technique</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Media Preparation</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Microbiological Testing</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Plant Biotechnology</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Green Nanoparticle Synthesis</span>
+                    </div>
+                </div>
+
+                <!-- Category 2: Research & Scientific Analysis -->
+                <div class="card bg-white hover:shadow-md transition-shadow duration-300">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-stone-100">
+                        <span class="text-2xl">🔬</span>
+                        <h2 class="font-serif font-bold text-lg text-brand-900">Research & Scientific Analysis</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Research Methodology</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Literature Research</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Experimental Data Interpretation</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Laboratory Data Handling</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Scientific Documentation</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Technical Report Writing</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Scientific Communication</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Research Presentation</span>
+                    </div>
+                </div>
+
+                <!-- Category 3: Bioinformatics & Computational Biology -->
+                <div class="card bg-white hover:shadow-md transition-shadow duration-300">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-stone-100">
+                        <span class="text-2xl">💻</span>
+                        <h2 class="font-serif font-bold text-lg text-brand-900">Bioinformatics & Computational Biology</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">NCBI</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Primer-BLAST</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">SnapGene</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">In-silico Analysis</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Biological Data Analysis</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Genomics Data Interpretation</span>
+                    </div>
+                </div>
+
+                <!-- Category 4: Data & Technical Tools -->
+                <div class="card bg-white hover:shadow-md transition-shadow duration-300">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-stone-100">
+                        <span class="text-2xl">📊</span>
+                        <h2 class="font-serif font-bold text-lg text-brand-900">Data & Technical Tools</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Microsoft Excel</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Quantitative Analysis</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Data Organization</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Technical Documentation</span>
+                    </div>
+                </div>
+
+                <!-- Category 5: Biotechnology Entrepreneurship & Product Development -->
+                <div class="card bg-white hover:shadow-md transition-shadow duration-300">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-stone-100">
+                        <span class="text-2xl">🚀</span>
+                        <h2 class="font-serif font-bold text-lg text-brand-900">Biotech Entrepreneurship & Product Dev</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Product Ideation</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Botanical Formulation</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Product Prototyping</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Basic Stability Assessment</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Scientific Product Research</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Product Development</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Branding & Packaging</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Commercialization Thinking</span>
+                    </div>
+                </div>
+
+                <!-- Category 6: Leadership & Project Management -->
+                <div class="card bg-white hover:shadow-md transition-shadow duration-300">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-stone-100">
+                        <span class="text-2xl">👥</span>
+                        <h2 class="font-serif font-bold text-lg text-brand-900">Leadership & Project Management</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Project Management</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Team Leadership</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Event Planning & Coordination</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Strategic Execution</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Task Delegation</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Volunteer Coordination</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Deadline Management</span>
+                    </div>
+                </div>
+
+                <!-- Category 7: Design & Digital Communication -->
+                <div class="card bg-white hover:shadow-md transition-shadow duration-300 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-stone-100">
+                        <span class="text-2xl">🎨</span>
+                        <h2 class="font-serif font-bold text-lg text-brand-900">Design & Digital Communication</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Canva</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Video Editing</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">CV & Portfolio Design</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">LinkedIn Content Creation</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Personal Branding</span>
+                        <span class="inline-block bg-stone-50 border border-stone-200 text-stone-700 text-sm px-3 py-1.5 rounded-full hover:bg-brand-50 hover:text-brand-800 hover:border-brand-200 transition-colors cursor-default">Visual Content Design</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CONTACT PAGE ================= -->
+        <section id="contact" class="page-section">
+            <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-8 md:p-12 lg:p-16 relative overflow-hidden">
+                <!-- Subtle background decoration -->
+                <div class="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-brand-50 rounded-full opacity-50 blur-3xl pointer-events-none"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-12 items-center relative z-10">
+                    
+                    <!-- Left Column: Intro & Location (Takes up 2/5 of the grid on desktop) -->
+                    <div class="md:col-span-2 space-y-6">
+                        <div class="inline-flex items-center gap-2 text-brand-700 font-bold uppercase tracking-widest text-xs mb-2">
+                            <span class="w-8 h-[2px] bg-brand-700 rounded-full"></span>
+                            Contact
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-serif font-bold text-stone-900 leading-tight">
+                            Let's build<br>together.
+                        </h1>
+                        <p class="text-lg text-stone-600 leading-relaxed text-justify">
+                            I'm always glad to connect with researchers, students and people building in biotechnology.
+                        </p>
+                        
+                        <!-- Location Badge -->
+                        <div class="inline-flex items-center px-4 py-2 mt-2 bg-stone-50 border border-stone-200 rounded-full text-stone-700 text-sm font-medium shadow-sm">
+                            <svg class="w-5 h-5 mr-2 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            Islamabad, Pakistan
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Contact Cards (Takes up 3/5 of the grid on desktop) -->
+                    <div class="md:col-span-3 space-y-4">
+                        
+                        <!-- Email Card -->
+                        <a href="mailto:a.haseeb.khan2005@gmail.com" class="group flex items-center p-5 bg-stone-50 border border-stone-200 rounded-xl hover:bg-white hover:border-brand-400 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex-shrink-0 w-14 h-14 bg-white border border-stone-200 group-hover:border-brand-200 group-hover:bg-brand-50 rounded-full flex items-center justify-center transition-colors duration-300">
+                                <svg class="w-6 h-6 text-stone-400 group-hover:text-brand-700 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-5">
+                                <p class="text-xs font-bold uppercase tracking-widest text-stone-400 group-hover:text-brand-700 transition-colors duration-300 mb-0.5">Email Me</p>
+                                <p class="text-stone-900 font-semibold md:text-lg">a.haseeb.khan2005@gmail.com</p>
+                            </div>
+                        </a>
+
+                        <!-- LinkedIn Card -->
+                        <a href="https://www.linkedin.com/in/abdul-haseeb05/" target="_blank" class="group flex items-center p-5 bg-stone-50 border border-stone-200 rounded-xl hover:bg-white hover:border-[#0A66C2] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex-shrink-0 w-14 h-14 bg-white border border-stone-200 group-hover:border-[#0A66C2]/30 group-hover:bg-[#0A66C2]/10 rounded-full flex items-center justify-center transition-colors duration-300">
+                                <svg class="w-6 h-6 text-stone-400 group-hover:text-[#0A66C2] transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-5">
+                                <p class="text-xs font-bold uppercase tracking-widest text-stone-400 group-hover:text-[#0A66C2] transition-colors duration-300 mb-0.5">Professional Network</p>
+                                <p class="text-stone-900 font-semibold md:text-lg">Abdul Haseeb</p>
+                            </div>
+                        </a>
+
+                        <!-- WhatsApp Card -->
+                        <a href="https://wa.me/966531304192" target="_blank" class="group flex items-center p-5 bg-stone-50 border border-stone-200 rounded-xl hover:bg-white hover:border-[#25D366] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex-shrink-0 w-14 h-14 bg-white border border-stone-200 group-hover:border-[#25D366]/30 group-hover:bg-[#25D366]/10 rounded-full flex items-center justify-center transition-colors duration-300">
+                                <svg class="w-6 h-6 text-stone-400 group-hover:text-[#25D366] transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-5">
+                                <p class="text-xs font-bold uppercase tracking-widest text-stone-400 group-hover:text-[#25D366] transition-colors duration-300 mb-0.5">WhatsApp Me</p>
+                                <p class="text-stone-900 font-semibold md:text-lg">+966 53 130 4192</p>
+                            </div>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HTML COMMENTS FOR FUTURE PROOFING -->
+        <!-- 
+            FUTURE SECTIONS TEMPLATES:
+            To add a "Projects", "Publications", "Certifications" or "FYP" section later, 
+            add a navigation link in the <header> and build a corresponding section here.
+            Use `<div class="card">` for layout items, `<span class="badge">` for tags, 
+            and `<div class="placeholder-box">` for missing media.
+        -->
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="mt-auto border-t border-stone-200 bg-white py-8 text-center text-sm text-stone-500">
+        Abdul Haseeb · Biotechnology undergraduate, IIUI · Islamabad, Pakistan
+    </footer>
+
+    <!-- Vanilla JS Router -->
+    <script>
+        function navigateTo(targetId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target section
+            const target = document.getElementById(targetId);
+            if(target) {
+                target.classList.add('active');
+            }
+
+            // Update Nav Active State (Only for main top-level nav links)
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-nav');
+                if(link.getAttribute('data-target') === targetId || 
+                  (targetId.includes('-detail') && link.getAttribute('data-target') === targetId.split('-')[0])) {
+                    // For detail pages, highlight parent nav item (e.g., 'nigab-detail' highlights 'experience')
+                    link.classList.add('active-nav');
+                }
+            });
+
+            // Scroll to top cleanly
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
